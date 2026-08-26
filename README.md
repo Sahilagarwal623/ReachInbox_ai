@@ -77,40 +77,46 @@
 | Email Service | Nodemailer + Ethereal Email (fake SMTP) |
 | Frontend | Next.js 14 + React 18 |
 | Styling | Tailwind CSS 3 |
-| Containerization | Docker + Docker Compose |
+| Containerization | Docker (Single App Container) |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Node.js** v18+
-- **Docker** & **Docker Compose** (for PostgreSQL + Redis)
-- **npm** package manager
+- **Node.js** v18+ (for local development)
+- **Docker** (for single-container production build)
+- **External PostgreSQL DB**
+- **External Redis DB**
 
-### Option 1: Quick Start with Docker Compose (Recommended)
+### Option 1: Single Container Deployment (Docker)
+
+You can build and run both the Frontend (Next.js) and Backend (Express) in a **single Docker container**. It will run on ports `3000` (Frontend) and `4000` (Backend).
 
 ```bash
 # Clone the repo
 git clone <repo-url>
 cd ReachInbox_ai
 
-# Start all services (PostgreSQL, Redis, Backend, Frontend)
-docker compose up --build
+# Set up your environment variables for external DBs (important)
+# Ensure DATABASE_URL and REDIS_HOST in backend/.env are set to external instances!
+
+# Build the monolithic Docker image
+docker build -t reachinbox-app .
+
+# Run the container
+docker run -p 3000:3000 -p 4000:4000 --env-file backend/.env reachinbox-app
 
 # Access:
 # Frontend:  http://localhost:3000
 # Backend:   http://localhost:4000
-# Health:    http://localhost:4000/health
 ```
 
 ### Option 2: Local Development
 
 #### 1. Start Infrastructure (PostgreSQL + Redis)
 
-```bash
-docker compose up postgres redis -d
-```
+If testing locally without Docker, ensure you have PostgreSQL and Redis running on your machine.
 
 #### 2. Setup Backend
 
