@@ -49,7 +49,7 @@ COPY --from=backend-builder /app/backend/node_modules/@prisma ./node_modules/@pr
 
 # --- Setup Frontend ---
 WORKDIR /app/frontend
-# Copy the standalone output from Next.js build
+# Copy static assets & standalone output from Next.js build
 COPY --from=frontend-builder /app/frontend/public ./public
 COPY --from=frontend-builder /app/frontend/.next/standalone ./
 COPY --from=frontend-builder /app/frontend/.next/static ./.next/static
