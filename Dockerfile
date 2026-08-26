@@ -2,6 +2,7 @@
 # Stage 1: Build Backend
 # ==========================================
 FROM node:20-alpine AS backend-builder
+RUN apk add --no-cache openssl ca-certificates
 WORKDIR /app/backend
 COPY backend/package*.json ./
 COPY backend/prisma ./prisma/
@@ -28,8 +29,8 @@ RUN npm run build
 # ==========================================
 FROM node:20-alpine AS runner
 
-# Install necessary OS tools (for PostgreSQL client tools, etc., though not strictly required unless debugging)
-RUN apk add --no-cache libc6-compat
+# Install necessary OS tools for Prisma / OpenSSL / Alpine runtime
+RUN apk add --no-cache openssl ca-certificates libc6-compat
 
 WORKDIR /app
 
