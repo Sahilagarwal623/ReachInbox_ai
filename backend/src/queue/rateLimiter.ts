@@ -5,6 +5,7 @@ export const redisClient = new Redis({
   host: env.REDIS_HOST,
   port: env.REDIS_PORT,
   password: env.REDIS_PASSWORD || undefined,
+  tls: env.REDIS_TLS ? {} : undefined,
   maxRetriesPerRequest: null, // Required by BullMQ
 });
 

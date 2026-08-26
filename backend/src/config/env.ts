@@ -10,6 +10,7 @@ export const env = {
   REDIS_HOST: process.env.REDIS_HOST || '127.0.0.1',
   REDIS_PORT: parseInt(process.env.REDIS_PORT || '6379', 10),
   REDIS_PASSWORD: process.env.REDIS_PASSWORD || undefined,
+  REDIS_TLS: process.env.REDIS_TLS === 'true' || process.env.REDIS_HOST?.includes('upstash'),
   WORKER_CONCURRENCY: parseInt(process.env.WORKER_CONCURRENCY || '5', 10),
   DEFAULT_MIN_DELAY_MS: parseInt(process.env.DEFAULT_MIN_DELAY_MS || '2000', 10),
   DEFAULT_HOURLY_LIMIT: parseInt(process.env.DEFAULT_HOURLY_LIMIT || '200', 10),
