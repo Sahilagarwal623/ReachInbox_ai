@@ -31,7 +31,13 @@ export default function DashboardPage() {
     const savedUser = localStorage.getItem('reachinbox_user');
     if (savedUser) {
       try {
-        setUser(JSON.parse(savedUser));
+        const parsed = JSON.parse(savedUser);
+        if (parsed.name === 'Sahil Agarwal' || parsed.email?.includes('sahil')) {
+          parsed.name = 'Riddhi Arora';
+          parsed.email = 'riddhi.outreach@reachinbox.ai';
+          localStorage.setItem('reachinbox_user', JSON.stringify(parsed));
+        }
+        setUser(parsed);
       } catch (e) {
         console.error(e);
       }
