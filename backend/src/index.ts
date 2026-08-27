@@ -84,9 +84,9 @@ async function bootstrap() {
   app.use('/api/emails', emailRoutes);
 
   // Start HTTP Server
-  const server = app.listen(env.PORT, () => {
+  const server = app.listen(env.PORT, '0.0.0.0', () => {
     console.log(`\n======================================================`);
-    console.log(`✨ ReachInbox Email Scheduler API running at http://localhost:${env.PORT}`);
+    console.log(`✨ ReachInbox Email Scheduler API running at http://0.0.0.0:${env.PORT}`);
     console.log(`======================================================\n`);
   });
 
