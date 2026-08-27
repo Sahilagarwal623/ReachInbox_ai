@@ -60,8 +60,8 @@ export async function handleScheduleBatch(req: Request, res: Response) {
 
     return res.status(201).json({ success: true, ...result });
   } catch (error: any) {
-    console.error('Error in handleScheduleBatch:', error);
-    return res.status(500).json({ error: error.message || 'Failed to schedule emails' });
+    console.error('❌ Error in handleScheduleBatch:', error);
+    return res.status(500).json({ success: false, error: error?.message || String(error) || 'Failed to schedule emails' });
   }
 }
 

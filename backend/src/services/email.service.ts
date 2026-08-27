@@ -27,8 +27,13 @@ export async function scheduleEmailBatch(input: ScheduleBatchInput) {
 
   let senderEmail = input.senderEmail;
   if (!senderEmail) {
-    const { senderEmail: etherealSender } = await getEtherealTransporter();
-    senderEmail = etherealSender;
+    try {
+      const { senderEmail: etherealSender } = await getEtherealTransporter();
+      senderEmail = etherealSender;
+    } catch (e) {
+      console.warn('⚠️ Ethereal account creation failed, fallback to default email:', e);
+      senderEmail = 'riddhi.outreach@reachinbox.ai';
+    }
   }
 
   // Ensure User exists in relational database
@@ -37,14 +42,24 @@ export async function scheduleEmailBatch(input: ScheduleBatchInput) {
     userRecord = await prisma.user.create({
       data: {
         id: userId,
-        email: senderEmail || 'demo.user@reachinbox.ai',
+        email: senderEmail || 'riddhi.outreach@reachinbox.ai',
         name: 'Riddhi Arora',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
       },
     });
   }
 
-  const baseStartTime = new Date(startTime).getTime();
+  let parsedStartTime = new Date();
+  if (startTime) {
+    const d = new Date(startTime);
+    if (!isNaN(d.getTime())) {
+      parsedStartTime = d;
+    }
+  }
+
+  const baseStartTime = parsedStartTime.getTime();
+  const safeDelayMs = isNaN(Number(delayMs)) || Number(delayMs) < 0 ? 2000 : Number(delayMs);
+  const safeHourlyLimit = isNaN(Number(hourlyLimit)) || Number(hourlyLimit) <= 0 ? 200 : Number(hourlyLimit);
   const createdSchedules = [];
 
   for (let i = 0; i < recipients.length; i++) {
@@ -65,8 +80,8 @@ export async function scheduleEmailBatch(input: ScheduleBatchInput) {
         body,
         status: 'SCHEDULED',
         scheduledAt: leadScheduledAt,
-        delayMs,
-        hourlyLimit,
+        delayMs: safeDelayMs,
+        hourlyLimit: safeHourlyLimit,
       },
     });
 
