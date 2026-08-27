@@ -39,8 +39,8 @@ export default function DashboardPage() {
       // Default demo Google authenticated user for instant reviewer access
       const defaultUser: User = {
         id: 'demo-user-id-1',
-        email: 'sahil.outreach@reachinbox.ai',
-        name: 'Sahil Agarwal',
+        email: 'riddhi.outreach@reachinbox.ai',
+        name: 'Riddhi Arora',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
         googleId: 'google-demo-default',
       };

@@ -138,8 +138,8 @@ export function Header({ user, onLogin, onLogout, onOpenCompose }: HeaderProps) 
                 <button
                   onClick={() =>
                     handleDemoGoogleLogin(
-                      'sahil.outreach@reachinbox.ai',
-                      'Sahil Agarwal',
+                      'riddhi.outreach@reachinbox.ai',
+                      'Riddhi Arora',
                       'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250'
                     )
                   }
@@ -148,12 +148,12 @@ export function Header({ user, onLogin, onLogout, onOpenCompose }: HeaderProps) 
                   <div className="flex items-center space-x-3">
                     <img
                       src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
-                      alt="Sahil"
+                      alt="Riddhi"
                       className="w-10 h-10 rounded-full object-cover border border-slate-700/50 group-hover:border-indigo-500/30 transition-colors"
                     />
                     <div>
-                      <p className="text-sm font-semibold text-slate-100">Sahil Agarwal</p>
-                      <p className="text-xs text-slate-500">sahil.outreach@reachinbox.ai</p>
+                      <p className="text-sm font-semibold text-slate-100">Riddhi Arora</p>
+                      <p className="text-xs text-slate-500">riddhi.outreach@reachinbox.ai</p>
                     </div>
                   </div>
                   <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity">

@@ -38,7 +38,7 @@ export async function scheduleEmailBatch(input: ScheduleBatchInput) {
       data: {
         id: userId,
         email: senderEmail || 'demo.user@reachinbox.ai',
-        name: 'Sahil Agarwal',
+        name: 'Riddhi Arora',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
       },
     });
