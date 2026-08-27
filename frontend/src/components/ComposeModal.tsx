@@ -113,7 +113,10 @@ export function ComposeModal({ user, isOpen, onClose, onSuccess }: ComposeModalP
       formData.append('body', body);
       formData.append('recipients', JSON.stringify(finalRecipients));
       if (startTime) {
-        formData.append('startTime', new Date(startTime).toISOString());
+        const parsedDate = new Date(startTime);
+        if (!isNaN(parsedDate.getTime())) {
+          formData.append('startTime', parsedDate.toISOString());
+        }
       }
       formData.append('delayMs', (delaySeconds * 1000).toString());
       formData.append('hourlyLimit', hourlyLimit.toString());
@@ -129,7 +132,8 @@ export function ComposeModal({ user, isOpen, onClose, onSuccess }: ComposeModalP
       onClose();
     } catch (err: any) {
       console.error('Schedule batch failed:', err);
-      toast.error(err.response?.data?.error || 'Failed to schedule batch');
+      const serverMessage = err.response?.data?.error || err.message || 'Failed to schedule batch';
+      toast.error(serverMessage);
     } finally {
       setIsSubmitting(false);
     }

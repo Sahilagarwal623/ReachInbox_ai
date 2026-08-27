@@ -5,8 +5,12 @@ export const redisClient = new Redis({
   host: env.REDIS_HOST,
   port: env.REDIS_PORT,
   password: env.REDIS_PASSWORD || undefined,
-  tls: env.REDIS_TLS ? {} : undefined,
+  tls: env.REDIS_TLS ? { servername: env.REDIS_HOST } : undefined,
   maxRetriesPerRequest: null, // Required by BullMQ
+});
+
+redisClient.on('error', (err) => {
+  console.error('⚠️ Redis Connection Warning:', err.message);
 });
 
 export function getHourWindowKey(senderEmail: string, date: Date = new Date()): string {

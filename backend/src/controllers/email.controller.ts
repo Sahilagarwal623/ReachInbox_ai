@@ -25,7 +25,16 @@ export async function handleScheduleBatch(req: Request, res: Response) {
     if (Array.isArray(recipients)) {
       leadList = recipients;
     } else if (typeof recipients === 'string') {
-      leadList = parseEmailsFromText(recipients);
+      try {
+        const parsed = JSON.parse(recipients);
+        if (Array.isArray(parsed)) {
+          leadList = parsed;
+        } else {
+          leadList = parseEmailsFromText(recipients);
+        }
+      } catch {
+        leadList = parseEmailsFromText(recipients);
+      }
     }
 
     if (req.file) {
